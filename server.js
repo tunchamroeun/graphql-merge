@@ -1,18 +1,18 @@
-const fs = require('fs');
 const express = require('express');
+const glob = require("glob");
 const {graphqlHTTP} = require('express-graphql');
 const {makeExecutableSchema, mergeResolvers, mergeTypeDefs} = require('graphql-tools');
 const app = express();
+let resolvers = glob.sync('graphql/*/*/*-resolver.js')
 let registerResolvers = [];
-const resolverDir = './graphql/resolvers';
-fs.readdirSync(resolverDir).forEach(file => {
-    registerResolvers = [...registerResolvers, require('./graphql/resolvers/' + file),]
-});
+for (const resolver of resolvers){
+    registerResolvers = [...registerResolvers, require('./'+resolver),]
+}
+let types = glob.sync('graphql/*/*/*-type.js')
 let registerTypes = [];
-const typeDir = './graphql/types';
-fs.readdirSync(typeDir).forEach(file => {
-    registerTypes = [...registerTypes, require('./graphql/types/' + file),]
-});
+for (const type of types){
+    registerTypes = [...registerTypes, require('./'+type),]
+}
 const schema = makeExecutableSchema({
     typeDefs: mergeTypeDefs(registerTypes),
     resolvers: mergeResolvers(registerResolvers,)
