@@ -1,6 +1,8 @@
 ### Run project
-`yarn install or npm install` to install dependencies
-`npm start` to start
+to install dependencies
+`yarn install or npm install`
+to start
+`npm start`
 ### Screenshot
 [![Screenshot](https://i.stack.imgur.com/mBmb5.png "Screenshot")](https://i.stack.imgur.com/mBmb5.png "Screenshot")
 ### Code example in your server file
