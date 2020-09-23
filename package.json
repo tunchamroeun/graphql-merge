@@ -1,19 +1,35 @@
 {
-  "name": "graphQL",
-  "version": "1.0.0",
-  "main": "server.js",
-  "author": "tunchamroeun",
-  "license": "MIT",
+  "name": "graphql",
+  "version": "0.0.1",
+  "description": "A Quasar Framework app",
+  "productName": "Quasar App",
+  "author": "Tun Cham Roeun <chamroeuntun25@outlook.com>",
+  "private": true,
   "scripts": {
-    "start": "nodemon ./server.js"
+    "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "express-graphql": "^0.11.0",
-    "glob": "^7.1.6",
-    "graphql": "^15.3.0",
-    "graphql-tag": "^2.11.0",
-    "graphql-tools": "^6.2.3",
-    "mongoose": "^5.10.6"
+    "@quasar/extras": "^1.0.0",
+    "core-js": "^3.6.5",
+    "quasar": "^1.0.0"
+  },
+  "devDependencies": {
+    "@quasar/app": "^2.0.0"
+  },
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
+  "engines": {
+    "node": ">= 10.18.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
   }
 }
