@@ -24,13 +24,14 @@
       show-if-above
       bordered
       content-class="bg-grey-1"
+      :width="200"
     >
       <q-list>
         <q-item-label
           header
           class="text-grey-8"
         >
-          Essential Links
+          Menu
         </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
@@ -41,67 +42,74 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
+import gql from 'graphql-tag'
+import Author from "src/vuex-orm/models/Author";
+import Book from "src/vuex-orm/models/Book";
 
+const authorQuery = gql`
+  query {
+      authors{
+          _id
+          name
+          age
+      }
+  }
+`;
+const bookQuery = gql`
+  query {
+      books{
+          _id
+          name
+          genre
+          author
+      }
+  }
+`;
 const linksData = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'Home',
+    to: '/',
+    icon: 'home',
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: 'Author',
+    to: '/author',
+    icon: 'people',
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
+    title: 'Book',
+    to: '/book',
+    icon: 'book',
   },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
 ];
-
 export default {
   name: 'MainLayout',
-  components: { EssentialLink },
-  data () {
+  components: {EssentialLink},
+  data() {
     return {
       leftDrawerOpen: false,
       essentialLinks: linksData
     }
+  },
+  created() {
+    this.$apollo.query({
+      query: authorQuery
+    }).then(function (data) {
+      console.log(data)
+      Author.insert({data: data.data.authors})
+    })
+    this.$apollo.query({
+      query: bookQuery
+    }).then(function (data) {
+      Book.insert({data: data.data.books})
+    })
   }
 }
 </script>

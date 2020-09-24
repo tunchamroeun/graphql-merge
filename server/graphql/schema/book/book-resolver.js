@@ -1,24 +1,24 @@
 const BookModel = require('../../../models/book')
 const AuthorModel = require('../../../models/author')
 const bookResolver = {
-    BookType: {
-        author: (parent, args) => {
-            return AuthorModel.findById(parent.author)
-        },
+  BookType: {
+    author_relate: (parent, args) => {
+      return AuthorModel.findById(parent.author)
     },
-    Query: {
-        book: (parent, args) => {
-            return BookModel.findById(args.id)
-        },
-        books: () => {
-            return BookModel.find()
-        },
+  },
+  Query: {
+    book: (parent, args) => {
+      return BookModel.findById(args.id)
     },
-    Mutation: {
-        addBook:(parent,args)=>{
-            let book = new BookModel(args)
-            return book.save()
-        }
+    books: () => {
+      return BookModel.find()
+    },
+  },
+  Mutation: {
+    addBook: (parent, args) => {
+      let book = new BookModel(args)
+      return book.save()
     }
+  }
 };
 module.exports = bookResolver
